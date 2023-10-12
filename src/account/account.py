@@ -15,6 +15,8 @@ class account(transaction):
                 self._protected = 'protected'   # this is a protected instance variable
         else:
             self.__balance = 0.0
+            self.public = 'public'          # this is public instance variable was supposed to be written
+            self._protected = 'protected'   # this is protected instance variable was supposed to be written
     
     def __privateMethod(self):
         print('Private Method')
@@ -40,7 +42,7 @@ class account(transaction):
                 raise ValueError("Credit amount is less than zero.")
         except ValueError as e:
             exit(e)
-        finally:
+        else:
             self.__balance += amount 
 
     def debit(self, amount: float):
@@ -73,5 +75,25 @@ class account(transaction):
     def sum(account1, account2):
         if(account1 is None or account2 is None):
             return 0.0
+        elif(not isinstance (account1, account) or not isinstance(account2, account)):
+            return 0.0
         else:
             return account1.__balance + account2.__balance 
+        
+    @staticmethod
+    def transfer(a, amount: float):
+        try:
+            if (amount < 0.0):
+                raise ValueError("Debit amount is less than a zero.")
+            elif (a is None):
+                raise ValueError("Account is None.")
+            elif (not isinstance(a, account)):
+                raise ValueError("a is not an account type.")
+            elif (amount > a.getBalance()):
+                raise ValueError("Debit amount is greater than the balance in the specified account.")
+        except ValueError as e:
+            exit(e)
+        else:
+            a.debit(amount)
+            newAccount = account(amount)
+            return newAccount
