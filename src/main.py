@@ -1,4 +1,5 @@
 from account.account import *
+from savingsaccount.savingsaccount import *
 
 def main():
     # create an account object named a1 that has a balance of $100
@@ -101,7 +102,35 @@ def main():
     # a4 = account.transfer(a3, 25.0) this line of code results in a ValueError
     # a4 = account.transfer(s1, 25.0)
 
+    sa1 = savingsaccount(10000.0, .06)
 
+    print("Balance in sa1 $%.2f" % (sa1.getBalance()))
+
+    print("Interest in sa1 $%.2f" % (sa1.getInterest()))
+
+    print('Is, sa1 empty? ', sa1.isEmpty())
+
+    print(sa1)
+
+    print('Is sa1 equal to a1?', sa1.__eq__(a1))
+
+    print('Is sa1 equal to a3?', sa1.__eq__(a3))
+
+    sa2 = savingsaccount(10000.0, .05)
+
+    print('Is sa1 equal to sa2?', sa1.__eq__(sa2))
+
+    sa2.setInterestRate(.06)
+
+    print('Is sa1 equal to sa2?', sa1.__eq__(sa2))
+
+    sa2.credit(1000.0)
+
+    print("Balance in sa2 $%.2f" % (sa2.getBalance()))
+
+    sa2.debit(1000.0)
+
+    print("Balance in sa2 $%.2f" % (sa2.getBalance()))
 
     # display the balances in a1 and a4
     print("Balance in a1 $%.2f" % (a1.getBalance()))
